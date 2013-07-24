@@ -1,3 +1,4 @@
+<div class = "well">
 <%= form_for @expense do |f| %>
 
 	<% if @expense.errors.any? %>
@@ -19,9 +20,11 @@
 	<p><%= f.label "Amount spent:" %></p>
  	<%= f.text_field :amount %>
  		<br><br>
-
+ 		<%= f.label "Date incurred:" %>
+	<%= f.datetime_select(:created_at) %>
   	<br>
  	<br>
  	<%= f.submit "Save" %>
 
 <% end %>
+</div>
