@@ -1,0 +1,39 @@
+<div class="navbar navbar-fixed-top navbar-inverse">
+  <div class="navbar-inner">
+    <div class="container">
+      <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target="#nav-collapse-01"></button>
+      <div class="nav-collapse collapse" id="nav-collapse-01">
+        <ul class="nav">
+          <li><%= link_to '<i class="icon-rocket icon-large"></i> Spendsheet'.html_safe, root_url %></li>
+          <li><%= link_to 'Expenses', expenses_path %>
+            <ul>
+              <li><a href="#fakelink">Daily</a></li>
+              <li><a href="#fakelink">Weekly</a></li>
+              <li><a href="#fakelink">Monthly</a></li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+      <ul class= "nav pull-right">
+        <% if user_signed_in? %>
+          <li><a href="#">User Settings</a>
+            <ul>
+              <li><%= link_to 'Edit Account', edit_user_registration_path(current_user) %></li>
+            </ul>
+          </li>
+          <li>
+            <%= link_to 'Logout', destroy_user_session_path, :method => :delete %>
+          </li>
+        <% else %>
+          <li>
+            <%= link_to 'Sign Up', new_user_registration_path %>
+          </li>
+          <li>
+            <%= link_to 'Sign In', new_user_session_path %>
+          </li>
+        <% end %>
+      </ul>
+      </div>
+    </div>
+  </div>
+</div>

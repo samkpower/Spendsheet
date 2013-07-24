@@ -1,0 +1,24 @@
+<h3 class = "offset1">Create an entry</h3>
+  <form class="form-horizontal ">
+    <%= form_for @expense do |f| %>
+
+      <div class="control-group">
+        <label class="control-label"><%= f.label :category %></label> 
+          <div class="controls">
+            <%= f.text_field :category, :placeholder => "Category" %>
+          </div>
+      </div>
+      <div class="control-group">
+        <label class="control-label"><%= f.label :amount %></label>
+          <div class="controls">
+            <%= f.text_field :amount, :placeholder => "Amount" %>
+          </div>
+      </div>
+      <div class="control-group">
+        <div class="controls">
+          <%= f.submit 'Submit', :class => 'btn' %>
+        </div>
+      </div>
+    <% end %>
+    </div>
+  </form>
