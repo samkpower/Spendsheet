@@ -1,21 +1,21 @@
-<h1>Expenses List</h1>
+<h1>All of Your Expenses</h1>
 
 <table class = "table">
 	<thead>
     <tr>
-      <th>Date</th>
-      <th>Category</th>
+      <th class = "span2">Date</th>
+      <th class = "span7">Category</th>
       <th>Amount</th>
-      <th></th>
+      <th class = "span2"></th>
     </tr>
 	</thead>
 	<tbody>
 <% @expenses.each do |expense| %>
   <tr>
-    <td><%= expense.created_at %><%= expense.id %></td>
-    <td><%= expense.category %></td>
+    <td class = "span2"><%= expense.created_at.strftime(' %b %d / %y') %></td>
+    <td class = "span7"><%= expense.category %></td>
     <td><%= expense.amount %></td>
-    <td><%= link_to 'Remove Entry', expense, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+    <td class = "span2"><%= link_to 'Remove Entry', expense, method: :delete, data: { confirm: 'Are you sure?' } %></td>
   </tr>
 <% end %>
 </tbody>
