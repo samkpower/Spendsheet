@@ -18,3 +18,12 @@
 // *{
 // 	border: 1px solid black;
 // }
+
+.icon-remove {
+		color: red;
+}
+
+a i[class^="icon"],
+a i[class*=" icon-"]{
+	text-decoration: none;
+}
