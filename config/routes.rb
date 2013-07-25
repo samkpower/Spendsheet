@@ -1,5 +1,7 @@
 SaveApp::Application.routes.draw do
   get "static_pages/index"
+  get "expenses/daily"
+  get "expenses/dash"
   devise_for :users do
     resources :expenses
   end
@@ -8,7 +10,7 @@ SaveApp::Application.routes.draw do
   # See how all your routes lay out with "rake routes".
 
   # You can have the root of your site routed with "root"
-  root 'static_pages#index'
+  root "expenses#dash"
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'

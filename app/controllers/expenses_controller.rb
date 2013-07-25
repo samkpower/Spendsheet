@@ -11,6 +11,14 @@ class ExpensesController < ApplicationController
   def show
   end
 
+  def dash
+    @expenses = Expense.all
+  end
+
+  def daily
+    @expenses = Expense.all
+  end
+
   def new
     @expense = @user.expenses.build
   end

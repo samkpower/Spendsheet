@@ -1,0 +1,44 @@
+<div class="page-header">
+	<h1><small>Hello!</small></br>
+	Check out what you've spent...</h1>
+</div>
+
+<div class = "row demo-tiles">
+	<div class = "span4">
+		<div class = "tile">
+			<h2>Today</h2>
+			<% total_sum = [] %>
+			<% @expenses.where(created_at: (Time.now.midnight - 1.day)..Time.now.midnight).each do |expense| %>
+				<% total_sum.push(expense.amount) %>
+			<% end %>
+			<% sum = total_sum.inject('+') %>
+			<h1 class = "btn btn-large"><%= number_to_currency(sum) %></h1>
+		</br></br></br>
+		</div>
+	</div>
+	<div class = "span4">
+		<div class = "tile">
+			<h2>This Week</h2>
+			<% total_sum = [] %>
+			<% @expenses.where(created_at: (Time.now.midnight - 7.day)..Time.now.midnight).each do |expense| %>
+				<% total_sum.push(expense.amount) %>
+			<% end %>
+			<% sum = total_sum.inject('+') %>
+			<h1 class = "btn btn-large"><%= number_to_currency(sum) %></h1>
+			</br></br></br>
+		</div>
+	</div>
+	<div class = "span4">
+		<div class = "tile">
+			<h2>This Month</h2>
+			<% total_sum = [] %>
+			<% days_since_first_of_month = (Time.now.day) - 1 %>
+			<% @expenses.where(created_at: ((Time.now.midnight) - (days_since_first_of_month).day)..Time.now.midnight).each do |expense| %>
+				<% total_sum.push(expense.amount) %>
+			<% end %>
+			<% sum = total_sum.inject('+') %>
+			<h1 class = "btn btn-large"><%= number_to_currency(sum) %></h1>
+			</br></br></br>
+		</div>
+	</div>
+</div>
