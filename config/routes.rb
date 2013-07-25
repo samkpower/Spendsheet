@@ -1,5 +1,6 @@
 SaveApp::Application.routes.draw do
   get "static_pages/index"
+  get "expenses/monthly"
   get "expenses/daily"
   get "expenses/dash"
   devise_for :users do

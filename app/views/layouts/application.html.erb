@@ -10,12 +10,21 @@
 
 <%= render 'layouts/nav'%>
 
-<p class = "notice"><%= notice %></p>
-<p class = "alert"><%= alert %></p>
-
 </br>
 
+<% if notice %>
+	<p class = "notice"><%= notice %></p>
+<% else %>
+<% end %>
+
+<% if alert %>
+	<p class = "alert"><%= alert %></p>
+<% else %>
+<% end %>
+
 <div class = container>
+
+</br></br>
 
 <%= yield %>
 

@@ -2,21 +2,22 @@ class ExpensesController < ApplicationController
 	before_filter :authenticate_user!
     before_filter :require_user
     before_action :set_expense, only: [:show, :edit, :update, :destroy]
+    before_action :set_expenses, only: [:index, :dash, :daily, :monthly, :yearly]
 
 
 	def index
-    @expenses = Expense.all
 	end
 
   def show
   end
 
   def dash
-    @expenses = Expense.all
   end
 
   def daily
-    @expenses = Expense.all
+  end
+
+  def monthly
   end
 
   def new
@@ -63,6 +64,10 @@ class ExpensesController < ApplicationController
 
     def set_expense
       @expense = Expense.find(params[:id])
+    end
+
+    def set_expenses
+      @expenses = Expense.all
     end
 
     # # Never trust parameters from the scary internet, only allow the white list through.

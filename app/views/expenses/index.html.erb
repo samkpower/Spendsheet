@@ -1,11 +1,13 @@
-<h1>All Expense Entries</h1>
+<div class="page-header">
+  <h1>All Expense Entries</h1>
+</div>
 
 <table class = "table">
 	<thead>
     <tr>
-      <th class = "span2">Date</th>
-      <th class = "span7">Category</th>
-      <th>Amount</th>
+      <th class = "span2"><strong>Date</strong></th>
+      <th class = "span7"><strong>Category</strong></th>
+      <th class = "span1"><strong>Amount</strong></th>
       <th class = "span1"></th>
     </tr>
 	</thead>
@@ -14,17 +16,17 @@
 <% @expenses.each do |expense| %>
   <tr>
     <td class = "span2"><%= expense.created_at.strftime(' %b %d / %y') %></td>
-    <td class = "span8"><%= expense.category %></td>
-    <td><%= number_to_currency(expense.amount) %></td>
+    <td class = "span7"><%= expense.category %></td>
+    <td class = "span1"><%= number_to_currency(expense.amount) %></td>
     <td class = "span1"><%= link_to '<i class="icon-remove"></i>'.html_safe, expense, method: :delete, data: { confirm: 'Are you sure?' } %></td>
   </tr>
     <% total_sum.push(expense.amount) %>
 <% end%>
   <tr class = "info">
     <td class = "span2"><h4>Total</h4></td>
-    <td class = "span8"></td>
+    <td class = "span7"></td>
     <% sum = total_sum.inject('+') %>
-    <td><h4><%= number_to_currency(sum) %></h4></td>
-    <td></td>
+    <td class = "span1"><h4><%= number_to_currency(sum) %></h4></td>
+    <td class = "span1"></td>
 </tbody>
 </table>
