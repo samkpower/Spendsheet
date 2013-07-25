@@ -48,3 +48,5 @@ end
 # gem 'debugger', group: [:development, :test]
 
 gem 'devise'
+
+gem 'simple_form'
