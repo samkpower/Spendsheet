@@ -4,41 +4,190 @@
 </div>
 
 <div class = "row demo-tiles">
+<!-- Today -->
 	<div class = "span4">
 		<div class = "tile">
-			<h2>Today</h2>
+			<h1>Today</h1>
+			<h3><%= DateTime.now.strftime("%A, %B %-d") %></h3>
 			<% total_sum = [] %>
 			<% @expenses.where(created_at: (Time.now.midnight - 1.day)..Time.now.midnight).each do |expense| %>
 				<% total_sum.push(expense.amount) %>
 			<% end %>
 			<% sum = total_sum.inject('+') %>
-			<h1 class = "btn btn-large"><%= number_to_currency(sum) %></h1>
+			<% sum = '0.00' if sum.nil? %>
+			</br>
+			<a href="#dailyexpensemodal" role="button" class="btn btn-large" data-toggle="modal"><%= number_to_currency(sum) %></a>
 		</br></br></br>
 		</div>
 	</div>
+<!-- Weekly -->
 	<div class = "span4">
 		<div class = "tile">
-			<h2>This Week</h2>
+			<h1>This Week</h1>
+			<h3><%= (Time.now.midnight - 7.day).strftime("%B %-d") + " - " + DateTime.now.strftime("%B %d") %></h3>
 			<% total_sum = [] %>
 			<% @expenses.where(created_at: (Time.now.midnight - 7.day)..Time.now.midnight).each do |expense| %>
 				<% total_sum.push(expense.amount) %>
 			<% end %>
 			<% sum = total_sum.inject('+') %>
-			<h1 class = "btn btn-large"><%= number_to_currency(sum) %></h1>
+			<% sum = '0.00' if sum.nil? %>
+			</br>
+			<a href="#weeklyexpensemodal" role="button" class="btn btn-large" data-toggle="modal"><%= number_to_currency(sum) %></a>
 			</br></br></br>
 		</div>
 	</div>
+<!-- Yearly -->
 	<div class = "span4">
 		<div class = "tile">
-			<h2>This Month</h2>
+			<h1>This Month</h1>
+			<h3><%= DateTime.now.strftime("%B %Y") %></h3>
 			<% total_sum = [] %>
 			<% days_since_first_of_month = (Time.now.day) - 1 %>
 			<% @expenses.where(created_at: ((Time.now.midnight) - (days_since_first_of_month).day)..Time.now.midnight).each do |expense| %>
 				<% total_sum.push(expense.amount) %>
 			<% end %>
 			<% sum = total_sum.inject('+') %>
-			<h1 class = "btn btn-large"><%= number_to_currency(sum) %></h1>
+			<% sum = '0.00' if sum.nil? %>
+			</br>
+			<a href="#monthlyexpensemodal" role="button" class="btn btn-large" data-toggle="modal"><%= number_to_currency(sum) %></a>
 			</br></br></br>
 		</div>
 	</div>
+</div>
+
+
+
+<!-- Modals -->
+<!-- Daily -->
+<div id="dailyexpensemodal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+    <h3 id="myModalLabel">Daily Expenses</h3>
+  </div>
+  <div class="modal-body">
+    <table class = "table">
+	<thead>
+    <tr>
+      <th class = "span2">Date</th>
+      <th class = "span7">Category</th>
+      <th>Amount</th>
+      <th class = "span1"></th>
+    </tr>
+	</thead>
+	<tbody>
+<% total_sum = [] %>
+<% @expenses.where(created_at: (Time.now.midnight - 1.day)..Time.now.midnight).each do |expense| %>
+  <tr>
+    <td class = "span2"><%= expense.created_at.strftime(' %b %d / %y') %></td>
+    <td class = "span8"><%= expense.category %></td>
+    <td><%= number_to_currency(expense.amount) %></td>
+    <td class = "span1"><%= link_to '<i class="icon-remove"></i>'.html_safe, expense, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+    <% total_sum.push(expense.amount) %>
+<% end %>
+  <tr class = "info">
+    <td class = "span2"><h4>Total</h4></td>
+    <td class = "span8"></td>
+    <% sum = total_sum.inject('+') %>
+    <% sum = '0.00' if sum.nil? %>
+    <td><h4><%= number_to_currency(sum) %></h4></td>
+    <td></td>
+  <% if sum == '0.00' %>
+  <div>
+	  	<div class="alert">
+	  		<button type="button" class="close" data-dismiss="alert">&times;</button>
+	  		<strong>You haven't made any entries yet!</strong>
+		</div>
+  </div>
+</tbody>
+</table>
+  </div>
+
+  <% end %>
+  <div class="modal-footer">
+    <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
+  </div>
+</div>
+
+<!-- Weekly -->
+<div id="weeklyexpensemodal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+    <h3 id="myModalLabel">Weekly Expenses</h3>
+  </div>
+  <div class="modal-body">
+    <table class = "table">
+	<thead>
+    <tr>
+      <th class = "span2">Date</th>
+      <th class = "span7">Category</th>
+      <th>Amount</th>
+      <th class = "span1"></th>
+    </tr>
+	</thead>
+	<tbody>
+  <% total_sum = [] %>
+  <% @expenses.where(created_at: ((Date.today - 7.day)..Date.today)).each do |expense| %>
+  <tr>
+    <td class = "span2"><%= expense.created_at.strftime(' %b %d / %y') %></td>
+    <td class = "span8"><%= expense.category %></td>
+    <td><%= number_to_currency(expense.amount) %></td>
+    <td class = "span1"><%= link_to '<i class="icon-remove"></i>'.html_safe, expense, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+    <% total_sum.push(expense.amount) %>
+<% end %>
+  <tr class = "info">
+    <td class = "span2"><h4>Total</h4></td>
+    <td class = "span8"></td>
+    <% sum = total_sum.inject('+') %>
+    <td><h4><%= number_to_currency(sum) %></h4></td>
+    <td></td>
+</tbody>
+</table>
+  </div>
+  <div class="modal-footer">
+    <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
+  </div>
+</div>
+
+<!-- Monthly -->
+<div id="monthlyexpensemodal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+    <h3 id="myModalLabel">Monthly Expenses</h3>
+  </div>
+  <div class="modal-body">
+    <table class = "table">
+	<thead>
+    <tr>
+      <th class = "span2">Date</th>
+      <th class = "span7">Category</th>
+      <th>Amount</th>
+      <th class = "span1"></th>
+    </tr>
+	</thead>
+	<tbody>
+  <% total_sum = [] %>
+  <% days_since_first_of_month = (Time.now.day) - 1 %>
+  <% @expenses.where(created_at: ((Time.now.midnight) - (days_since_first_of_month).day)..Time.now.midnight).each do |expense| %>
+  <tr>
+    <td class = "span2"><%= expense.created_at.strftime(' %b %d / %y') %></td>
+    <td class = "span8"><%= expense.category %></td>
+    <td><%= number_to_currency(expense.amount) %></td>
+    <td class = "span1"><%= link_to '<i class="icon-remove"></i>'.html_safe, expense, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+    <% total_sum.push(expense.amount) %>
+<% end %>
+  <tr class = "info">
+    <td class = "span2"><h4>Total</h4></td>
+    <td class = "span8"></td>
+    <% sum = total_sum.inject('+') %>
+    <td><h4><%= number_to_currency(sum) %></h4></td>
+    <td></td>
+</tbody>
+</table>
+  </div>
+  <div class="modal-footer">
+    <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
+  </div>
 </div>

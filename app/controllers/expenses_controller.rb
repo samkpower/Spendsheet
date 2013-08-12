@@ -15,9 +15,15 @@ class ExpensesController < ApplicationController
   end
 
   def daily
+    @expenses = Expense.all
   end
 
   def monthly
+    @expenses = Expense.all
+  end
+
+  def weekly
+    @expenses = Expense.all
   end
 
   def new

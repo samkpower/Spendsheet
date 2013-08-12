@@ -13,6 +13,6 @@
 //= require jquery
 //= require jquery_ujs
 //= require bootstrap
-//= require flat-ui
+//= require bootstrap-datetimepicker
 //= require turbolinks
 //= require_tree .

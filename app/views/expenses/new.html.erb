@@ -1,30 +1,27 @@
 <div class = "well">
-<%= form_for @expense do |f| %>
-
-	<% if @expense.errors.any? %>
-		<div id="error_explanation">
-			<h2><%= pluralize(@expense.errors.count, "error") %> prohibited this expense from being saved: </h2>
-
-			<ul>
-			<% @expense.errors.full_messages.each do |msg| %>
-				<li><%= msg %></li>
-				<% end %>
-			</ul>
-		</div>
-	<% end %>
-
-
-	<p><%= f.label "Category:" %></p>
- 	<%= f.text_field :category %>
-
-	<p><%= f.label "Amount spent:" %></p>
- 	<%= f.text_field :amount %>
- 		<br><br>
- 		<%= f.label "Date incurred:" %>
-	<%= f.datetime_select(:created_at) %>
-  	<br>
- 	<br>
- 	<%= f.submit "Save" %>
-
+<%= simple_form_for @expense do |f| %>
+	<p><%= f.select :category, [['Food','food'],['Rent','rent'],['Beer','beer']] %></p>
+	<p><%= f.input :amount %></p>
+	<%= f.input :created_at, 
+    as: :date, 
+    start_year: Date.today.year - 1,
+    end_year: Date.today.year + 1,
+    order: [:day, :month, :year] 
+  %>
+    </br>
+	<%= button_tag(type: "submit", class: "btn") do %>
+   <i class="icon-plus-sign"></i> Add Entry
+<% end %>
 <% end %>
 </div>
+
+<div class="span3">
+          <select name="herolist" value="X-Men" class="select-block span3">
+            <option value="0">Choose hero</option>
+            <option value="1">Spider Man</option>
+            <option value="2">Wolverine</option>
+            <option value="3">Captain America</option>
+            <option value="X-Men" selected="selected">X-Men</option>
+            <option value="Crocodile">Crocodile</option>
+          </select>
+        </div>

@@ -8,6 +8,7 @@
           <li><%= link_to 'Expenses', expenses_path %>
             <ul>
               <li><%= link_to 'Daily', expenses_daily_path %></li>
+              <li><%= link_to 'Weekly', expenses_weekly_path %></li>
               <li><%= link_to 'Monthly', expenses_monthly_path %></li>
               <li><%= link_to 'All', expenses_path %></li>
             </ul>
@@ -16,7 +17,7 @@
       </div>
       <ul class= "nav pull-right">
         <% if user_signed_in? %>
-          <li><a href="#">User Settings</a>
+          <li><a href="#">Settings</a>
             <ul>
               <li><%= link_to 'Edit Account', edit_user_registration_path(current_user) %></li>
             </ul>
