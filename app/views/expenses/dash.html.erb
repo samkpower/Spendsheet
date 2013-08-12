@@ -8,9 +8,9 @@
 	<div class = "span4">
 		<div class = "tile">
 			<h1>Today</h1>
-			<h3><%= DateTime.now.strftime("%A, %B %-d") %></h3>
+			<h3><%= Date.today.strftime("%A, %B %-d") %></h3>
 			<% total_sum = [] %>
-			<% @expenses.where(created_at: (Time.now.midnight - 1.day)..Time.now.midnight).each do |expense| %>
+			<% @expenses.where(created_at: (Date.today - 1.day)..Date.today).each do |expense| %>
 				<% total_sum.push(expense.amount) %>
 			<% end %>
 			<% sum = total_sum.inject('+') %>
@@ -24,9 +24,9 @@
 	<div class = "span4">
 		<div class = "tile">
 			<h1>This Week</h1>
-			<h3><%= (Time.now.midnight - 7.day).strftime("%B %-d") + " - " + DateTime.now.strftime("%B %d") %></h3>
+			<h3><%= (Date.today - 7.day).strftime("%B %-d") + " - " + Date.today.strftime("%B %d") %></h3>
 			<% total_sum = [] %>
-			<% @expenses.where(created_at: (Time.now.midnight - 7.day)..Time.now.midnight).each do |expense| %>
+			<% @expenses.where(created_at: (Date.today - 7.day)..Date.today).each do |expense| %>
 				<% total_sum.push(expense.amount) %>
 			<% end %>
 			<% sum = total_sum.inject('+') %>
@@ -36,14 +36,14 @@
 			</br></br></br>
 		</div>
 	</div>
-<!-- Yearly -->
+<!-- Monthly -->
 	<div class = "span4">
 		<div class = "tile">
 			<h1>This Month</h1>
-			<h3><%= DateTime.now.strftime("%B %Y") %></h3>
+			<h3><%= Date.today.strftime("%B %Y") %></h3>
 			<% total_sum = [] %>
-			<% days_since_first_of_month = (Time.now.day) - 1 %>
-			<% @expenses.where(created_at: ((Time.now.midnight) - (days_since_first_of_month).day)..Time.now.midnight).each do |expense| %>
+			<% days_since_first_of_month = (Date.today) - 1 %>
+			<% @expenses.where(created_at: ((Date.today) - (days_since_first_of_month).day)..Date.today).each do |expense| %>
 				<% total_sum.push(expense.amount) %>
 			<% end %>
 			<% sum = total_sum.inject('+') %>
@@ -76,7 +76,7 @@
 	</thead>
 	<tbody>
 <% total_sum = [] %>
-<% @expenses.where(created_at: (Time.now.midnight - 1.day)..Time.now.midnight).each do |expense| %>
+<% @expenses.where(created_at: (Date.today - 1.day)..Date.today).each do |expense| %>
   <tr>
     <td class = "span2"><%= expense.created_at.strftime(' %b %d / %y') %></td>
     <td class = "span8"><%= expense.category %></td>
@@ -168,8 +168,8 @@
 	</thead>
 	<tbody>
   <% total_sum = [] %>
-  <% days_since_first_of_month = (Time.now.day) - 1 %>
-  <% @expenses.where(created_at: ((Time.now.midnight) - (days_since_first_of_month).day)..Time.now.midnight).each do |expense| %>
+  <% days_since_first_of_month = (Date.today.day) - 1 %>
+  <% @expenses.where(created_at: ((Date.today) - (days_since_first_of_month).day)..Date.today).each do |expense| %>
   <tr>
     <td class = "span2"><%= expense.created_at.strftime(' %b %d / %y') %></td>
     <td class = "span8"><%= expense.category %></td>
