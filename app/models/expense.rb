@@ -3,4 +3,5 @@ class Expense < ActiveRecord::Base
 
 	validate :category, presence: true
 	validate :amount, presence: true
+
 end

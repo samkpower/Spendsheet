@@ -1,6 +1,28 @@
+<div class = "page-header">
+  <h1>Add an Expense</h1>
+</div>
+
 <div class = "well">
 <%= simple_form_for @expense do |f| %>
-	<p><%= f.select :category, [['Food','food'],['Rent','rent'],['Beer','beer']] %></p>
+	<p>Category</p>
+  <p><%= f.select :category, [['Groceries','Groceries'],
+                              ['Rent/Mortgage','Rent/Mortgage'],
+                              ['Fast Food','Fast Food'],
+                              ['Restaurant','Restaurant'],
+                              ['Cell Phone', 'Cell Phone'],
+                              ['Internet', 'Internet'],
+                              ['Entertainment', 'Entertainment'],
+                              ['Drugstore', 'Drugstore'],
+                              ['Interests & Hobbies', 'Interests & Hobbies'],
+                              ['Gifts', 'Gifts'],
+                              ['Pet', 'Pet'],
+                              ['Vacation', 'Vacation'],
+                              ['Transportaton', 'Transportation'],
+                              ['Insurance', 'Insurance'],
+                              ['Utilities', 'Utilities'],
+                              ['Furniture,' 'Furniture'],
+                              ['Insurance', 'Insurance'],
+                              ['Debt Repayment', 'Debt Repayment']] %></p>
 	<p><%= f.input :amount %></p>
 	<%= f.input :created_at, 
     as: :date, 
@@ -9,19 +31,8 @@
     order: [:day, :month, :year] 
   %>
     </br>
-	<%= button_tag(type: "submit", class: "btn") do %>
+	<%= button_tag(type: "submit", class: "btn btn-large") do %>
    <i class="icon-plus-sign"></i> Add Entry
 <% end %>
 <% end %>
 </div>
-
-<div class="span3">
-          <select name="herolist" value="X-Men" class="select-block span3">
-            <option value="0">Choose hero</option>
-            <option value="1">Spider Man</option>
-            <option value="2">Wolverine</option>
-            <option value="3">Captain America</option>
-            <option value="X-Men" selected="selected">X-Men</option>
-            <option value="Crocodile">Crocodile</option>
-          </select>
-        </div>

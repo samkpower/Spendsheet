@@ -1,6 +1,10 @@
 <div class = "page-header">
   <h1><small>Daily Entries</small></br>
-    <%= Date.today.strftime("%A | %B %d | %Y") %></h1>
+    <%= Date.today.strftime("%A | %B %d | %Y") %>
+    <div class = "pull-right">
+      <%= link_to "Create a New Entry", new_expense_path, :class => "btn btn-primary btn-large" %>
+    </div>
+  </h1>
 </div>
 
 <table class = "table">
@@ -14,7 +18,9 @@
 	</thead>
 	<tbody>
 <% total_sum = [] %>
-<% @expenses.where(created_at: (Time.now.midnight - 1.day)..Time.now.midnight).each do |expense| %>
+<% daily_expenses = @expenses.where(created_at: (Time.now.midnight - 1.day)..Time.now.midnight) %>
+<% sorted_daily_expenses = daily_expenses.sort_by! {|expense| expense[:created_at]} %>
+<% sorted_daily_expenses.each do |expense| %>
   <tr>
     <td class = "span2"><%= expense.created_at.strftime(' %b %d / %y') %></td>
     <td class = "span8"><%= expense.category %></td>
