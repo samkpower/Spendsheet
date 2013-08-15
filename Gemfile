@@ -52,3 +52,7 @@ gem 'devise'
 gem 'simple_form'
 
 gem 'datetimepicker-rails', :require => 'datetimepicker-rails', :git => 'git://github.com/zpaulovics/datetimepicker-rails.git'
+
+gem 'chartkick'
+
+gem 'groupdate'

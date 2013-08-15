@@ -18,12 +18,18 @@ class ExpensesController < ApplicationController
     @expenses = Expense.all
   end
 
+  def weekly
+    @expenses = Expense.all
+  end
+
   def monthly
     @expenses = Expense.all
   end
 
-  def weekly
-    @expenses = Expense.all
+  def yearly
+    expenses = Expense.all
+    yearly_expenses = expenses.year("2012")
+    sorted_yearly_expenses = yearly_expenses.sort_by! {|expense| expense[:created_at]}
   end
 
   def new

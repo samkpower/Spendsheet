@@ -1,0 +1,37 @@
+<div class = "page-header">
+  <h1><small>Monthly Entries</small></br>
+    <%= Date.today.strftime("%B %Y") %>
+      <div class = "pull-right">
+        <%= link_to "Create a New Entry", new_expense_path, :class => "btn btn-primary btn-large" %>
+      </div>
+  </h1>
+</div>
+
+<table class = "table">
+	<thead>
+    <tr>
+      <th class = "span2">Date</th>
+      <th class = "span7">Category</th>
+      <th>Amount</th>
+      <th class = "span1"></th>
+    </tr>
+	</thead>
+	<tbody>
+  <% total_sum = [] %>
+  <% @sorted_yearly_expenses.each do |expense| %>
+  <tr>
+    <td class = "span2"><%= expense.created_at.strftime(' %b %d / %y') %></td>
+    <td class = "span8"><%= expense.category %></td>
+    <td><%= number_to_currency(expense.amount) %></td>
+    <td class = "span1"><%= link_to '<i class="icon-remove"></i>'.html_safe, expense, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+    <% total_sum.push(expense.amount) %>
+<% end %>
+  <tr class = "info">
+    <td class = "span2"><h4>Total</h4></td>
+    <td class = "span8"></td>
+    <% sum = total_sum.inject('+') %>
+    <td><h4><%= number_to_currency(sum) %></h4></td>
+    <td></td>
+</tbody>
+</table>
