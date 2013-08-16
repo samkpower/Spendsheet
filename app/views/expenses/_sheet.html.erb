@@ -1,12 +1,3 @@
-<div class = "page-header">
-  <h1><small>Yearly Entries</small></br>
-    <% Date.today
-      <div class = "pull-right">
-        <%= link_to "Create a New Entry", new_expense_path, :class => "btn btn-primary btn-large" %>
-      </div>
-  </h1>
-</div>
-
 <table class = "table">
 	<thead>
     <tr>
@@ -35,7 +26,3 @@
     <td></td>
 </tbody>
 </table>
-
-<% @sorted_yearly_expenses.each do |expense| %>
-<%= render partial: "sheet", object: expense %>
-

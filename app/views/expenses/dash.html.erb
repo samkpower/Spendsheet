@@ -13,7 +13,7 @@
 			<h1>Today</h1>
 			<h3><%= Date.today.strftime("%A, %B %-d") %></h3>
 			<% total_sum = [] %>
-			<% @expenses.where(created_at: (Time.now.midnight - 1.day)..Time.now.midnight).each do |expense| %>
+			<% @sorted_daily_expenses.each do |expense| %>
 				<% total_sum.push(expense.amount) %>
 			<% end %>
 			<% sum = total_sum.inject('+') %>
@@ -29,7 +29,7 @@
 			<h1>This Week</h1>
 			<h3><%= (Date.today - 7.day).strftime("%B %-d") + " - " + Date.today.strftime("%B %d") %></h3>
 			<% total_sum = [] %>
-			<% @expenses.where(created_at: (Date.today - 7.day)..Date.today).each do |expense| %>
+			<% @sorted_weekly_expenses.each do |expense| %>
 				<% total_sum.push(expense.amount) %>
 			<% end %>
 			<% sum = total_sum.inject('+') %>
@@ -45,8 +45,7 @@
 			<h1>This Month</h1>
 			<h3><%= Date.today.strftime("%B %Y") %></h3>
 			<% total_sum = [] %>
-			<% days_since_first_of_month = (Date.today) - 1 %>
-			<% @expenses.where(created_at: ((Date.today) - (days_since_first_of_month).day)..Date.today).each do |expense| %>
+			<% @sorted_monthly_expenses.each do |expense| %>
 				<% total_sum.push(expense.amount) %>
 			<% end %>
 			<% sum = total_sum.inject('+') %>
@@ -65,7 +64,7 @@
 <div id="dailyexpensemodal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
   <div class="modal-header">
     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-    <h3 id="myModalLabel">Daily Expenses</h3>
+    <h3 id="myModalLabel">Today</h3>
   </div>
   <div class="modal-body">
     <table class = "table">
@@ -79,11 +78,9 @@
     	</thead>
       	<tbody>
           <% total_sum = [] %>
-          <% daily_expenses = @expenses.where(created_at: (Time.now.midnight - 1.day)..Time.now.midnight) %>
-          <% sorted_daily_expenses = daily_expenses.sort_by! {|expense| expense[:created_at]} %>
-          <% sorted_daily_expenses.each do |expense| %>
+          <% @sorted_daily_expenses.each do |expense| %>
             <tr>
-              <td class = "span2"><%= expense.created_at.strftime(' %b %d / %y') %></td>
+              <td class = "span2"><%= expense.created_at.strftime('%b %d') %></td>
               <td class = "span8"><%= expense.category %></td>
               <td><%= number_to_currency(expense.amount) %></td>
               <td class = "span1"><%= link_to '<i class="icon-remove"></i>'.html_safe, expense, method: :delete, data: { confirm: 'Are you sure?' } %></td>
@@ -121,7 +118,7 @@
 <div id="weeklyexpensemodal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
   <div class="modal-header">
     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-    <h3 id="myModalLabel">Weekly Expenses</h3>
+    <h3 id="myModalLabel">This Week</h3>
   </div>
   <div class="modal-body">
     <table class = "table">
@@ -135,11 +132,9 @@
 	</thead>
 	<tbody>
   <% total_sum = [] %>
-  <% weekly_expenses = @expenses.where(created_at: ((Date.today - 7.day)..Date.today)) %>
-  <% sorted_weekly_expenses = weekly_expenses.sort_by! {|expense| expense[:created_at]} %>
-  <% sorted_weekly_expenses.each do |expense| %>
+  <% @sorted_weekly_expenses.each do |expense| %>
   <tr>
-    <td class = "span2"><%= expense.created_at.strftime(' %b %d / %y') %></td>
+    <td class = "span2"><%= expense.created_at.strftime('%b %d') %></td>
     <td class = "span8"><%= expense.category %></td>
     <td><%= number_to_currency(expense.amount) %></td>
     <td class = "span1"><%= link_to '<i class="icon-remove"></i>'.html_safe, expense, method: :delete, data: { confirm: 'Are you sure?' } %></td>
@@ -164,7 +159,7 @@
 <div id="monthlyexpensemodal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
   <div class="modal-header">
     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-    <h3 id="myModalLabel">Monthly Expenses</h3>
+    <h3 id="myModalLabel">This Month</h3>
   </div>
   <div class="modal-body">
     <table class = "table">
@@ -178,12 +173,9 @@
 	</thead>
 	<tbody>
   <% total_sum = [] %>
-  <% days_since_first_of_month = (Date.today.day) - 1 %>
-  <% monthly_expenses = @expenses.where(created_at: ((Date.today) - (days_since_first_of_month).day)..Date.today) %>
-  <% sorted_monthly_expenses = monthly_expenses.sort_by! {|expense| expense[:created_at]} %>
-  <% sorted_monthly_expenses.each do |expense| %>
+  <% @sorted_monthly_expenses.each do |expense| %>
   <tr>
-    <td class = "span2"><%= expense.created_at.strftime(' %b %d / %y') %></td>
+    <td class = "span2"><%= expense.created_at.strftime('%b %d') %></td>
     <td class = "span8"><%= expense.category %></td>
     <td><%= number_to_currency(expense.amount) %></td>
     <td class = "span1"><%= link_to '<i class="icon-remove"></i>'.html_safe, expense, method: :delete, data: { confirm: 'Are you sure?' } %></td>

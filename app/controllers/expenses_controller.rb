@@ -2,7 +2,7 @@ class ExpensesController < ApplicationController
 	before_filter :authenticate_user!
     before_filter :require_user
     before_action :set_expense, only: [:show, :edit, :update, :destroy]
-    before_action :set_expenses, only: [:index, :dash, :daily, :monthly, :yearly]
+    before_action :set_expenses, only: [:index, :dash, :daily, :weekly, :monthly, :yearly]
 
 
 	def index
@@ -12,24 +12,29 @@ class ExpensesController < ApplicationController
   end
 
   def dash
+    @sorted_daily_expenses = @expenses.today.sort_by! {|expense| expense[:created_at]}
+    @sorted_weekly_expenses = @expenses.this_week.sort_by! {|expense| expense[:created_at]}
+    @sorted_monthly_expenses = @expenses.this_month.sort_by! {|expense| expense[:created_at]}
   end
 
   def daily
-    @expenses = Expense.all
+    daily_expenses = @expenses.today
+    @sorted_daily_expenses = daily_expenses.sort_by! {|expense| expense[:created_at]}
   end
 
   def weekly
-    @expenses = Expense.all
+    weekly_expenses = @expenses.this_week
+    @sorted_weekly_expenses = weekly_expenses.sort_by! {|expense| expense[:created_at]}
   end
 
   def monthly
-    @expenses = Expense.all
+    monthly_expenses = @expenses.this_month
+    @sorted_monthly_expenses = monthly_expenses.sort_by! {|expense| expense[:created_at]}
   end
 
   def yearly
-    expenses = Expense.all
-    yearly_expenses = expenses.year("2012")
-    sorted_yearly_expenses = yearly_expenses.sort_by! {|expense| expense[:created_at]}
+    yearly_expenses = @expenses.year(2013)
+    @sorted_yearly_expenses = yearly_expenses.sort_by! {|expense| expense[:created_at]}
   end
 
   def new

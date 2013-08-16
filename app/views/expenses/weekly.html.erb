@@ -18,9 +18,7 @@
 	</thead>
 	<tbody>
   <% total_sum = [] %>
-  <% weekly_expenses = @expenses.where(created_at: ((Time.now.midnight - 8.day)..Time.now.midnight)) %>
-  <% sorted_weekly_expenses = weekly_expenses.sort_by! {|expense| expense[:created_at]} %>
-  <% sorted_weekly_expenses.each do |expense| %>
+  <% @sorted_weekly_expenses.each do |expense| %>
   <tr>
     <td class = "span2"><%= expense.created_at.strftime(' %b %d / %y') %></td>
     <td class = "span8"><%= expense.category %></td>
