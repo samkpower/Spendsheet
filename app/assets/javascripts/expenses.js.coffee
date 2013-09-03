@@ -4,3 +4,4 @@
 
 $(document).ready ->
   $('.datepicker').datepicker()
+    format: 'mm-dd-yyyy'
