@@ -1,0 +1,6 @@
+<tr>
+  <td class = "span2"><%= expense.created_at.strftime(' %b %d / %y') %></td>
+  <td class = "span8"><%= expense.category %></td>
+  <td><%= number_to_currency(expense.amount) %></td>
+  <td class = "span1"><%= link_to '<i class="icon-remove"></i>'.html_safe, expense, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+</tr>
