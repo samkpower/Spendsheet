@@ -5,6 +5,7 @@ class ExpensesController < ApplicationController
     before_action :set_expenses, only: [:index, :dash, :daily, :weekly, :monthly, :yearly, :chartkick]
 
   def chartkick
+    @monthly_expenses = @expenses.this_month
   end
 
 	def index

@@ -2,6 +2,6 @@
   <%= javascript_include_tag "//www.google.com/jsapi", "chartkick" %>
 <% end %>
 <%#= line_chart @expenses.group_by_day(:created_at).count %>
-<%= line_chart @expenses.select("date(created_at), category").group("date(created_at)").count %>
+<%= line_chart @monthly_expenses.select("date(created_at), category").group("date(created_at)").sum("amount") %>
 
 <%#= pie_chart({"Football" => 10, "Basketball" => 5}) %>
