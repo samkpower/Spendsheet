@@ -17,7 +17,6 @@
     </tr>
 	</thead>
 	<tbody>
-  <% total_sum = [] %>
   <% @sorted_monthly_expenses.each do |expense| %>
   <tr>
     <td class = "span2"><%= expense.created_at.strftime(' %b %d / %y') %></td>
@@ -25,13 +24,11 @@
     <td><%= number_to_currency(expense.amount) %></td>
     <td class = "span1"><%= link_to '<i class="icon-remove"></i>'.html_safe, expense, method: :delete, data: { confirm: 'Are you sure?' } %></td>
   </tr>
-    <% total_sum.push(expense.amount) %>
 <% end %>
   <tr class = "info">
     <td class = "span2"><h4>Total</h4></td>
     <td class = "span8"></td>
-    <% sum = total_sum.inject('+') %>
-    <td><h4><%= number_to_currency(sum) %></h4></td>
+    <td><h4><%= number_to_currency(Expense.sum_expenses(@sorted_monthly_expenses)) %></h4></td>
     <td></td>
 </tbody>
 </table>
