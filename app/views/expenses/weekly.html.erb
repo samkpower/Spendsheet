@@ -1,6 +1,6 @@
 <div class = "page-header">
   <h1><small>Weekly Entries</small></br>
-    <%= (Date.today - 7.day).strftime("%B %-d") + " - " + Date.today.strftime("%B %d") %>
+    <%= Time.zone.now.beginning_of_week(start_day = :sunday).strftime("%B %d") + " - " + Time.zone.now.end_of_week.strftime("%B %d") %>
       <div class = "pull-right">
         <%= link_to "Create a New Entry", new_expense_path, :class => "btn btn-primary btn-large" %>
       </div>

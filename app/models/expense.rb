@@ -32,5 +32,9 @@ class Expense < ActiveRecord::Base
 	def self.this_month
 		today = Time.zone.now
 		where(created_at: today.beginning_of_month..today.end_of_month)
-	end	
+	end
+
+	def self.sum_expenses(expenses)
+		expenses.sum(&:amount)
+	end
 end

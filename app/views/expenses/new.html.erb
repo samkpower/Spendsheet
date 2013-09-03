@@ -24,12 +24,8 @@
                               ['Insurance', 'Insurance'],
                               ['Debt Repayment', 'Debt Repayment']] %></p>
 	<p><%= f.input :amount %></p>
-	<%= f.input :created_at, 
-    as: :date, 
-    start_year: Date.today.year - 1,
-    end_year: Date.today.year + 1,
-    order: [:day, :month, :year] 
-  %>
+  <p>Created At</p>
+	<%= f.text_field :created_at, :class => 'datepicker' %>
     </br>
 	<%= button_tag(type: "submit", class: "btn btn-large") do %>
    <i class="icon-plus-sign"></i> Add Entry

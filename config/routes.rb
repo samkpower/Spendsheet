@@ -1,5 +1,6 @@
 SaveApp::Application.routes.draw do
   get "static_pages/index"
+  get "expenses/chartkick"
   get "expenses/yearly"
   get "expenses/monthly"
   get "expenses/weekly"

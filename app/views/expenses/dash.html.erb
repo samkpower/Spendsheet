@@ -27,7 +27,7 @@
 	<div class = "span4">
 		<div class = "tile">
 			<h1>This Week</h1>
-			<h3><%= (Date.today - 7.day).strftime("%B %-d") + " - " + Date.today.strftime("%B %d") %></h3>
+			<h3><%= Time.zone.now.beginning_of_week(start_day = :sunday).strftime("%b %d") + " - " + Time.zone.now.end_of_week.strftime("%b %d") %></h3>
 			<% total_sum = [] %>
 			<% @sorted_weekly_expenses.each do |expense| %>
 				<% total_sum.push(expense.amount) %>
