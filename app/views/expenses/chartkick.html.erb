@@ -2,6 +2,18 @@
   <%= javascript_include_tag "//www.google.com/jsapi", "chartkick" %>
 <% end %>
 <%#= line_chart @expenses.group_by_day(:created_at).count %>
-<%= line_chart @monthly_expenses.select("date(created_at), category").group("date(created_at)").sum("amount") %>
 
-<%#= pie_chart({"Football" => 10, "Basketball" => 5}) %>
+<h2>September Spending</h2>
+<%= line_chart @monthly_expenses.select("month(created_at)").group("date(created_at)").sum("amount") %>
+
+<h2>2013 Spending</h2>
+<%= line_chart @yearly_expenses.select("year(created_at)").group("date(created_at)").sum("amount") %>
+
+<h2>2013 Category Breakdown</h2>
+<%= pie_chart @yearly_expenses.group("category").sum("amount") %>
+
+<h2>2013 Categorized Spending over Time</h2>
+<%= line_chart @yearly_expenses.group("category").select("year(created_at)").group("date(created_at").sum("amount").map %>
+
+<!-- @yearly_expenses.map{|expense|
+  {:name => expense.category, :data => expense.group("year(created_at)").sum("amount") }} %> -->

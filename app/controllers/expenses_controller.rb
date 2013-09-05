@@ -6,6 +6,7 @@ class ExpensesController < ApplicationController
 
   def chartkick
     @monthly_expenses = @expenses.this_month
+    @yearly_expenses = @expenses.year(2013)
   end
 
 	def index
