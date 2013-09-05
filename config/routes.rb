@@ -6,7 +6,7 @@ SaveApp::Application.routes.draw do
   get "expenses/weekly"
   get "expenses/daily"
   get "expenses/dash"
-  devise_for :users do
+  devise_for :users, :controllers => { :registrations => "registrations" } do
     resources :expenses
     resources :categories
   end
