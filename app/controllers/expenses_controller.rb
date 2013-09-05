@@ -1,8 +1,8 @@
 class ExpensesController < ApplicationController
-	before_filter :authenticate_user!
-    before_filter :require_user
-    before_action :set_expense, only: [:show, :edit, :update, :destroy]
-    before_action :set_expenses, only: [:index, :dash, :daily, :weekly, :monthly, :yearly, :chartkick]
+  before_filter :authenticate_user!
+  before_filter :require_user
+  before_action :set_expense, only: [:show, :edit, :update, :destroy]
+  before_action :set_expenses, only: [:index, :dash, :daily, :weekly, :monthly, :yearly, :chartkick]
 
   def chartkick
     @monthly_expenses = @expenses.this_month
@@ -42,11 +42,11 @@ class ExpensesController < ApplicationController
   end
 
   def new
-    @expense = @user.expenses.build
+    @expense = @current_user.expenses.build
   end
 
   def create
-    @expense = @user.expenses.create(expense_params)
+    @expense = @current_user.expenses.create(expense_params)
     
     @expense.save
 
@@ -78,11 +78,6 @@ class ExpensesController < ApplicationController
 
 	private
 
-    def require_user
-      @user = current_user
-    end
-    # Use callbacks to share common setup or constraints between actions.
-
     def set_expense
       @expense = Expense.find(params[:id])
     end
@@ -93,6 +88,6 @@ class ExpensesController < ApplicationController
 
     # # Never trust parameters from the scary internet, only allow the white list through.
     def expense_params
-      params.require(:expense).permit(:category, :amount, :created_at, :updated_at)
+      params.require(:expense).permit(:category_id, :amount, :created_at, :updated_at)
     end
 end

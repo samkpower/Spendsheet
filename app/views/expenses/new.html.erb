@@ -5,24 +5,7 @@
 <div class = "well">
 <%= simple_form_for @expense do |f| %>
 	<p>Category</p>
-  <p><%= f.select :category, [['Groceries','Groceries'],
-                              ['Rent/Mortgage','Rent/Mortgage'],
-                              ['Fast Food','Fast Food'],
-                              ['Restaurant','Restaurant'],
-                              ['Cell Phone', 'Cell Phone'],
-                              ['Internet', 'Internet'],
-                              ['Entertainment', 'Entertainment'],
-                              ['Drugstore', 'Drugstore'],
-                              ['Interests & Hobbies', 'Interests & Hobbies'],
-                              ['Gifts', 'Gifts'],
-                              ['Pet', 'Pet'],
-                              ['Vacation', 'Vacation'],
-                              ['Transportaton', 'Transportation'],
-                              ['Insurance', 'Insurance'],
-                              ['Utilities', 'Utilities'],
-                              ['Furniture,' 'Furniture'],
-                              ['Insurance', 'Insurance'],
-                              ['Debt Repayment', 'Debt Repayment']] %></p>
+  <p><%= collection_select(:expense, :category_id, @current_user.categories, :id, :name ) %></p>
 	<p><%= f.input :amount %></p>
   <p>Created At</p>
 	<%= f.text_field :created_at, :class => 'datepicker' %>

@@ -1,5 +1,6 @@
 class Expense < ActiveRecord::Base
 	belongs_to :user
+	belongs_to :category
 
 	validate :category, presence: true
 	validate :amount, presence: true

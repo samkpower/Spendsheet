@@ -8,6 +8,7 @@ SaveApp::Application.routes.draw do
   get "expenses/dash"
   devise_for :users do
     resources :expenses
+    resources :categories
   end
 
   # The priority is based upon order of creation: first created -> highest priority.

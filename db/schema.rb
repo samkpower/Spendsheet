@@ -11,16 +11,26 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20130723224848) do
+ActiveRecord::Schema.define(version: 20130905181923) do
 
-  create_table "expenses", force: true do |t|
-    t.string   "category"
-    t.decimal  "amount",     precision: 8, scale: 2
+  create_table "categories", force: true do |t|
+    t.string   "name"
     t.integer  "user_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
+  add_index "categories", ["user_id"], name: "index_categories_on_user_id"
+
+  create_table "expenses", force: true do |t|
+    t.decimal  "amount",      precision: 8, scale: 2
+    t.integer  "user_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "category_id"
+  end
+
+  add_index "expenses", ["category_id"], name: "index_expenses_on_category_id"
   add_index "expenses", ["user_id"], name: "index_expenses_on_user_id"
 
   create_table "users", force: true do |t|

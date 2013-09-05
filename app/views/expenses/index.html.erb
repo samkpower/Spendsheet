@@ -21,7 +21,7 @@
 <% sorted_expenses.each do |expense| %>
   <tr>
     <td class = "span2"><%= expense.created_at.strftime(' %b %d / %y') %></td>
-    <td class = "span7"><%= expense.category %></td>
+    <td class = "span7"><%= expense.category.name %></td>
     <td class = "span1"><%= number_to_currency(expense.amount) %></td>
     <td class = "span1"><%= link_to '<i class="icon-remove"></i>'.html_safe, expense, method: :delete, data: { confirm: 'Are you sure?' } %></td>
   </tr>
