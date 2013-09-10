@@ -1,5 +1,5 @@
 SaveApp::Application.routes.draw do
-  get "periods/index(/:year)" => "periods#index"
+  get "periods/index(/:year(:/month(/:day)))" => "periods#index"
   get "static_pages/index"
   get "expenses/chartkick"
   get "expenses/yearly"
