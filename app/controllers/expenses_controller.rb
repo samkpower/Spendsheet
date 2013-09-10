@@ -83,7 +83,7 @@ class ExpensesController < ApplicationController
     end
 
     def set_expenses
-      @expenses = Expense.all
+      @expenses = @current_user.expenses
     end
 
     # # Never trust parameters from the scary internet, only allow the white list through.
