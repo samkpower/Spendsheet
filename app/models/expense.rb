@@ -10,13 +10,13 @@ class Expense < ActiveRecord::Base
 		where(created_at: date.beginning_of_year..date.end_of_year)
 	end
 
-	def self.month(month)
-		date = DateTime.parse(month)
+	def self.month(year, month)
+		date = DateTime.parse("#{year.to_s}/#{month.to_s}")
 		where(created_at: date.beginning_of_month..date.end_of_month)
 	end
 
-	def self.day(day)
-		date = DateTime.parse(day)
+	def self.day(year, month, day)
+		date = DateTime.parse("#{year.to_s}/#{month.to_s}/#{day.to_s}")
 		where(created_at: date.beginning_of_day..date.end_of_day)
 	end
 
