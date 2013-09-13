@@ -4,3 +4,6 @@
 
 $(document).ready ->
   $('.datepicker').datepicker format: 'yyyy-mm-dd'
+
+  $('#expense_category_name').autocomplete
+    source: $('#expense_category_name').data('autocomplete-source')

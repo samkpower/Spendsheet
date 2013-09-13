@@ -7,7 +7,7 @@
 	<p>Category</p>
 
   <div><%#= collection_select(:expense, :category_id, @current_user.categories, :id, :name ) %></div>
-  <div><%= f.text_field :category_name %></div>
+  <div><%= f.text_field :category_name, data: {autocomplete_source: @current_user.categories.order(:name).map(&:name)}  %></div>
 
 	<p><%= f.input :amount %></p>
 
