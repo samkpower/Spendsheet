@@ -3,20 +3,23 @@
 </div>
 
 <div class = "well">
-<%= simple_form_for @expense do |f| %>
-	<p>Category</p>
+  <%= form_for @expense do |f| %>
+    <p>Category</p>
+    <div><%= f.text_field :category_name, data: {autocomplete_source: @current_user.categories.order(:name).map(&:name)}  %></div>
 
-  <div><%#= collection_select(:expense, :category_id, @current_user.categories, :id, :name ) %></div>
-  <div><%= f.text_field :category_name, data: {autocomplete_source: @current_user.categories.order(:name).map(&:name)}  %></div>
+    <p>Amount</p>
+    <div><%= f.text_field :amount %></div>
 
-	<p><%= f.input :amount %></p>
+    <p>Created At</p>
+    <div><%= f.text_field :created_at, :class => 'datepicker' %></div>
 
-  <p>Created At</p>
+    <br>
+    
+    <div>
+    	<%= button_tag(type: "submit", class: "btn btn-large") do %>
+        <i class="icon-plus-sign"></i> Add Entry
+      <% end %>
+    </div>
 
-	<%= f.text_field :created_at, :class => 'datepicker' %>
-    </br>
-	<%= button_tag(type: "submit", class: "btn btn-large") do %>
-   <i class="icon-plus-sign"></i> Add Entry
-<% end %>
-<% end %>
+  <% end %>
 </div>

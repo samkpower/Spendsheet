@@ -1,5 +1,5 @@
 <div class="page-header">
-  <h1>Create a New Category
+  <h1>Edit Category
     <div class = "pull-right">
         <%= link_to "Create a New Entry", new_expense_path, :class => "btn btn-primary btn-large" %>
     </div>
@@ -7,11 +7,11 @@
 </div>
 
 <%= form_for @category do |f| %>
-  <p>Name</p>
+  <p><strong>Name<strong></p>
   <div><%= f.text_field :name %></div>
   <div>
     <%= button_tag(type: "submit", class: "btn btn-large") do %>
-      Create Category
+      Update Category
     <% end %>
   </div>
 <% end %>

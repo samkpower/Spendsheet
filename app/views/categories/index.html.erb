@@ -1,3 +1,25 @@
-<% @categories.each do |x| %>
-<p><%= x.name %></p>
-<% end %>
+<div class="page-header">
+  <h1>Manage Your Categories
+    <div class = "pull-right">
+        <%= link_to "Create a New Entry", new_expense_path, :class => "btn btn-primary btn-large" %>
+    </div>
+  </h1>
+</div>
+
+<table class="table">
+  <thead>
+    <tr>
+      <td><strong>Category</strong></td>
+      <td><strong>Options</strong></td>
+    </tr>
+  </thead>
+  <% @categories.each do |category| %>
+    <tr>
+      <td><%= category.name %></td>
+      <td class = "span1">
+        <%= link_to '<i class="icon-edit"></i>'.html_safe, edit_category_path(category) %>
+        <%= link_to '<i class="icon-remove"></i>'.html_safe, category, method: :delete, data: { confirm: 'Are you sure?' }, class: "pull-right" %>
+      </td>
+    </tr>
+    <% end %>
+</table>

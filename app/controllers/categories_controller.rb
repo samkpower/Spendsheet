@@ -12,14 +12,26 @@ class CategoriesController < ApplicationController
     @category.save
 
     if @category.save
-      redirect_to categories_path, notice: "New expense has been added."
+      redirect_to categories_path, notice: "New category has been added."
     else
       render :new
     end
   end
 
+  def edit
+    @category = Category.find(params[:id])
+  end
+
+  def update
+    @category = Category.find(params[:id])
+    @category.update(category_params)
+    @category.save
+
+    redirect_to categories_path
+  end
+
   def index
-    @categories = @current_user.categories
+    @categories = @current_user.categories.sort_by! {|category| category[:name]}
   end
   
   private
