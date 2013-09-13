@@ -21,19 +21,17 @@ class ExpensesController < ApplicationController
     @sorted_monthly_expenses = @expenses.this_month.sort_by! {|expense| expense[:created_at]}
   end
 
-  def daily
-    daily_expenses = @expenses.today
-    @sorted_daily_expenses = daily_expenses.sort_by! {|expense| expense[:created_at]}
-  end
-
-  def weekly
-    weekly_expenses = @expenses.this_week
-    @sorted_weekly_expenses = weekly_expenses.sort_by! {|expense| expense[:created_at]}
-  end
-
   def monthly
-    monthly_expenses = @expenses.this_month
-    @sorted_monthly_expenses = monthly_expenses.sort_by! {|expense| expense[:created_at]}
+    if params[:date]
+      month = params[:date][:month]
+      year = params[:date][:year]
+      @date = DateTime.parse("#{year}/#{month}")
+      @monthly_expenses = @expenses.month(@date)
+    else
+      @date = Date.today
+      @monthly_expenses = @expenses.this_month
+    end
+    @sorted_monthly_expenses = @monthly_expenses.sort_by! {|expense| expense[:created_at]} 
   end
 
   def yearly
@@ -60,7 +58,7 @@ class ExpensesController < ApplicationController
   def edit
   end
 
-	 def update
+	def update
     @expense.update(expense_params)
     @expense.save
 

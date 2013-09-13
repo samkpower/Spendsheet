@@ -13,7 +13,7 @@
 <%= pie_chart @yearly_expenses.group("category").sum("amount") %>
 
 <h2>2013 Categorized Spending over Time</h2>
-<%= line_chart @yearly_expenses.group("category").select("year(created_at)").group("date(created_at").sum("amount").map %>
+<%#= line_chart @yearly_expenses.group("category").select("year(created_at)").group("date(created_at").sum("amount").map %>
 
 <!-- @yearly_expenses.map{|expense|
   {:name => expense.category, :data => expense.group("year(created_at)").sum("amount") }} %> -->

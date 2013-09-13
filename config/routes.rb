@@ -1,12 +1,16 @@
 SaveApp::Application.routes.draw do
   get "periods/:year(/:month(/:day))" => "periods#index"
-  get "static_pages/index"
+
   get "expenses/chartkick"
+
   get "expenses/yearly"
+  get "expenses/yealy/:year" => "expenses#yearly"
+
   get "expenses/monthly"
-  get "expenses/weekly"
-  get "expenses/daily"
+  get "expenses/monthly/:year/:month" => "expenses#monthly"
+
   get "expenses/dash"
+  
   devise_for :users, :controllers => { :registrations => "registrations" } do
     resources :expenses
     resources :categories
