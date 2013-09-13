@@ -2,7 +2,7 @@ class ExpensesController < ApplicationController
   before_filter :authenticate_user!
   before_filter :require_user
   before_action :set_expense, only: [:show, :edit, :update, :destroy]
-  before_action :set_expenses, only: [:index, :dash, :daily, :weekly, :monthly, :yearly, :chartkick]
+  before_action :set_expenses, only: [:index, :dash, :monthly, :yearly, :chartkick]
 
   def chartkick
     @monthly_expenses = @expenses.this_month
