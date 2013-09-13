@@ -5,9 +5,14 @@
 <div class = "well">
 <%= simple_form_for @expense do |f| %>
 	<p>Category</p>
-  <p><%= collection_select(:expense, :category_id, @current_user.categories, :id, :name ) %></p>
+
+  <div><%#= collection_select(:expense, :category_id, @current_user.categories, :id, :name ) %></div>
+  <div><%= f.text_field :category_name %></div>
+
 	<p><%= f.input :amount %></p>
+
   <p>Created At</p>
+
 	<%= f.text_field :created_at, :class => 'datepicker' %>
     </br>
 	<%= button_tag(type: "submit", class: "btn btn-large") do %>

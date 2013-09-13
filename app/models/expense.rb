@@ -5,6 +5,14 @@ class Expense < ActiveRecord::Base
 	validate :category, presence: true
 	validate :amount, presence: true
 
+	def category_name
+		category.try(:name)
+	end
+
+	def category_name=(name)
+		self.category = Category.find_or_create_by_name(name) if name.present?
+	end
+
 	def self.year(year)
 		date = DateTime.new(year)
 		where(created_at: date.beginning_of_year..date.end_of_year)
