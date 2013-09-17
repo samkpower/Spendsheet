@@ -53,3 +53,8 @@ gem 'devise'
 gem 'simple_form'
 gem 'chartkick'
 gem 'pry'
+
+group :production do
+  gem 'rails_12factor'
+  gem 'pg'
+end
