@@ -7,3 +7,7 @@ $(document).ready ->
 
   $('#expense_category_name').autocomplete
     source: $('#expense_category_name').data('autocomplete-source')
+
+  $("#myTab a").click(e) ->
+    e.preventDefault()
+    $(this).tab "show"

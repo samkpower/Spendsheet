@@ -13,6 +13,10 @@ class Expense < ActiveRecord::Base
 		self.category = Category.find_or_create_by_name(name) if name.present?
 	end
 
+	def self.group_by_category
+		group("category").sum("amount")
+	end
+
 	def self.year(year)
 		date = DateTime.new(year)
 		where(created_at: date.beginning_of_year..date.end_of_year)

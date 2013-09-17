@@ -33,3 +33,16 @@ a i[class^="icon"],
 a i[class*=" icon-"]{
 	text-decoration: none;
 }
+
+.title-link {
+  text-decoration: none;
+  color: #34495e;
+}
+
+.select-month {
+  padding: 10px 20px;
+}
+
+.inline-block {
+  display: inline-block;
+}
