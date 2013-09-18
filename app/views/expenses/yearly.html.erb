@@ -19,22 +19,86 @@
   </h1>
 </div>
 
-<table class = "table">
-	<thead>
-    <tr>
-      <th class = "span2">Date</th>
-      <th class = "span7">Category</th>
-      <th>Amount</th>
-      <th class = "span1"></th>
-    </tr>
-	</thead>
-	<tbody>
-  <%= render partial: "expense", collection: @sorted_yearly_expenses, as: :expense %>
-  <tr class = "info">
-    <td class = "span2"><h4>Total</h4></td>
-    <td class = "span8"></td>
-    <td><h4><%= number_to_currency(Expense.sum_expenses(@sorted_yearly_expenses)) %></h4></td>
-    <td></td>
-</tbody>
-</table>
+<div class="row">
+  <div class="span8">
+    <ul class="nav nav-tabs">
+      <li class="active"><a href="#summary" data-toggle="tab">Summary</a></li>
+      <li><a href="#all" data-toggle="tab">See All Entries</a></li>
+    </ul>
 
+
+    <div class="tab-content">
+      <!-- Category Tab Pane -->
+      <div class="tab-pane active" id="summary">
+        <table class = "table">
+          <thead>
+            <tr>
+              <th class = "span10"><strong>Category</strong></th>
+              <th class = "span2"><strong>Amount</strong></th>
+            </tr>
+          </thead>
+          <tbody>
+            <% @yearly_expenses.group_by_category.each do |category, amount| %>
+              <tr>
+                <td><%= category.name %></td>
+                <td><%= number_to_currency(amount) %></td>
+              </tr>
+            <% end %>
+            <tr class = "info">
+              <td class = "span10"><h4>Total</h4></td>
+              <td class = "span2"><h4><%= number_to_currency(Expense.sum_expenses(@yearly_expenses)) %></h4></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="tab-pane" id="all">
+        <table class= "table">
+          <thead>
+            <tr>
+              <th class = "span2">Date</th>
+              <th class = "span7">Category</th>
+              <th>Amount</th>
+              <th class = "span1"></th>
+            </tr>
+          </thead>
+          <tbody>
+          <%= render partial: "expense", collection: @sorted_yearly_expenses, as: :expense %>
+          <tr class = "info">
+            <td class = "span2"><h4>Total</h4></td>
+            <td class = "span8"></td>
+            <td><h4><%= number_to_currency(Expense.sum_expenses(@sorted_yearly_expenses)) %></h4></td>
+            <td></td>
+          </tbody>
+        </table>
+      </div>
+
+    </div>
+  </div>
+  
+  <div class="span4">
+    <div>
+      <table class="table table-bordered table-condensed table-borderless">
+        <tr>
+          <td>
+            <h3><%= @yearly_expenses.length %></h3>
+            <h5>Number of Entries</h5>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <h3><%= number_to_currency((Expense.sum_expenses(@sorted_yearly_expenses))/365.242) %></h3>
+            <h5>Average spending per day</h5>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <h3><%= number_to_currency(Expense.sum_expenses(@sorted_yearly_expenses)) %></h3>
+            <h5>Total Spending</h5>
+          </td>
+        </tr>
+      </table>
+    </div>
+  </div>
+
+</div>

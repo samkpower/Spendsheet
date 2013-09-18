@@ -46,3 +46,9 @@ a i[class*=" icon-"]{
 .inline-block {
   display: inline-block;
 }
+
+.table-borderless {
+  border-top: none;
+  border-right: none;
+  border-bottom: none;
+}

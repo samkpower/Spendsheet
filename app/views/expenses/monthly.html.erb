@@ -1,7 +1,3 @@
-<% content_for :chartkick do %>
-  <%= javascript_include_tag "//www.google.com/jsapi", "chartkick" %>
-<% end %>
-
 <div class="page-header">
   <h1><small>Monthly Summary</small></br>
     <div class="dropdown inline-block">
@@ -25,57 +21,85 @@
   </h1>
 </div>
 
-<ul class="nav nav-tabs">
-  <li class="active"><a href="#date" data-toggle="tab">Organized by Date</a></li>
-  <li><a href="#category" data-toggle="tab">Organized by Category</a></li>
-</ul>
+<div class="row">
+  <div class="span8">
+    <ul class="nav nav-tabs">
+      <li class="active"><a href="#summary" data-toggle="tab">Summary</a></li>
+      <li><a href="#all" data-toggle="tab">See All Entries</a></li>
+    </ul>
 
 
-<div class="tab-content">
-  <div class="tab-pane active" id="date">
-    <%= line_chart @monthly_expenses.select("month(created_at)").group("date(created_at)").sum("amount") %>
-    <table class = "table">
-    	<thead>
-        <tr>
-          <th class = "span2">Date</th>
-          <th class = "span7">Category</th>
-          <th>Amount</th>
-          <th class = "span1"></th>
-        </tr>
-    	</thead>
-    	<tbody>
-      <%= render partial: "expense", collection: @sorted_monthly_expenses, as: :expense %>
-      <tr class = "info">
-        <td class = "span2"><h4>Total</h4></td>
-        <td class = "span8"></td>
-        <td><h4><%= number_to_currency(Expense.sum_expenses(@sorted_monthly_expenses)) %></h4></td>
-        <td></td>
-      </tbody>
-    </table>
+    <div class="tab-content">
+      <!-- Category Tab Pane -->
+      <div class="tab-pane active" id="summary">
+        <table class = "table">
+          <thead>
+            <tr>
+              <th class = "span10"><strong>Category</strong></th>
+              <th class = "span2"><strong>Amount</strong></th>
+            </tr>
+          </thead>
+          <tbody>
+            <% @monthly_expenses.group_by_category.each do |category, amount| %>
+              <tr>
+                <td><%= category.name %></td>
+                <td><%= number_to_currency(amount) %></td>
+              </tr>
+            <% end %>
+            <tr class = "info">
+              <td class = "span10"><h4>Total</h4></td>
+              <td class = "span2"><h4><%= number_to_currency(Expense.sum_expenses(@monthly_expenses)) %></h4></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="tab-pane" id="all">
+        <table class= "table">
+        	<thead>
+            <tr>
+              <th class = "span2">Date</th>
+              <th class = "span7">Category</th>
+              <th>Amount</th>
+              <th class = "span1"></th>
+            </tr>
+        	</thead>
+        	<tbody>
+          <%= render partial: "expense", collection: @sorted_monthly_expenses, as: :expense %>
+          <tr class = "info">
+            <td class = "span2"><h4>Total</h4></td>
+            <td class = "span8"></td>
+            <td><h4><%= number_to_currency(Expense.sum_expenses(@sorted_monthly_expenses)) %></h4></td>
+            <td></td>
+          </tbody>
+        </table>
+      </div>
+
+    </div>
   </div>
 
-  <div class="tab-pane" id="category">
-    <%= pie_chart @monthly_expenses.group("category").select("category.name").sum("amount")
-%>
-    <table class = "table">
-      <thead>
+  <div class="span4">
+    <div>
+      <table class="table table-bordered table-condensed table-borderless">
         <tr>
-          <th class = "span10"><strong>Category</strong></th>
-          <th class = "span2"><strong>Amount</strong></th>
+          <td>
+            <h3><%= @monthly_expenses.length %></h3>
+            <h5>Number of Entries</h5>
+          </td>
         </tr>
-      </thead>
-      <tbody>
-        <% @monthly_expenses.group_by_category.each do |category, amount| %>
-          <tr>
-            <td><%= category.name %></td>
-            <td><%= number_to_currency(amount) %></td>
-          </tr>
-        <% end %>
-      <tr class = "info">
-        <td class = "span10"><h4>Total</h4></td>
-        <td class = "span2"><h4><%= number_to_currency(Expense.sum_expenses(@monthly_expenses)) %></h4></td>
-      </tr>
-      </tbody>
-    </table>
+        <tr>
+          <td>
+            <h3><%= number_to_currency((Expense.sum_expenses(@sorted_monthly_expenses))/Time.days_in_month(@month, @year)) %></h3>
+            <h5>Average spending per day</h5>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <h3><%= number_to_currency(Expense.sum_expenses(@sorted_monthly_expenses)) %></h3>
+            <h5>Total Spending</h5>
+          </td>
+        </tr>
+      </table>
+    </div>
   </div>
 </div>

@@ -16,5 +16,5 @@
 /tmp
 
 # Ignore experimental pages
-/expenses/chartkick.html.erb
-/periods/index.html.erb
+app/views/expenses/chartkick.html.erb
+app/views/periods/index.html.erb

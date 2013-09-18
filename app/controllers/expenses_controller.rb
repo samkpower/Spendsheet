@@ -23,11 +23,13 @@ class ExpensesController < ApplicationController
 
   def monthly
     if params[:date]
-      month = params[:date][:month]
-      year = params[:date][:year]
+      @month = params[:date][:month]
+      @year = params[:date][:year]
       @date = DateTime.parse("#{year}/#{month}")
       @monthly_expenses = @expenses.month(@date)
     else
+      @month = Date.today.month
+      @year = Date.today.year
       @date = Date.today
       @monthly_expenses = @expenses.this_month
     end

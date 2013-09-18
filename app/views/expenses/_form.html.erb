@@ -1,6 +1,7 @@
 <p>Category</p>
 <div><%= f.text_field :category_name, data: {autocomplete_source: @current_user.categories.order(:name).map(&:name)}  %></div>
 
+
 <p>Amount</p>
 <div><%= f.text_field :amount %></div>
 

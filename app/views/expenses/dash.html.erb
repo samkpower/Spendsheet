@@ -11,7 +11,7 @@
 	<div class = "span4">
 		<div class = "tile">
 			<h1>Today</h1>
-			<h3><%= Date.today.strftime("%A, %B %-d") %></h3>
+			<h3><%= Date.today.strftime("%A, %b %-d") %></h3>
 			</br>
 			<a href="#dailyexpensemodal" role="button" class="btn btn-large" data-toggle="modal"><%= number_to_currency(Expense.sum_expenses(@sorted_daily_expenses)) %></a>
 		</br></br></br>

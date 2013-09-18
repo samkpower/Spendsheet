@@ -24,23 +24,3 @@
     <td class = "span1"></td>
 </tbody>
 </table>
-
-<table class="table">
-  <thead>
-    <tr>
-      <th class="span10"><strong>Category</strong></th>
-      <th class="span2"><strong>Amount</strong></th>
-    </tr>
-  </thead>
-  <tbody>
-    <% @expenses.group_by_category.each do |category, amount| %>
-      <tr>
-        <td><%= category.name %></td>
-        <td><%= number_to_currency(amount) %></td>
-      </tr>
-    <% end %>
-  <tr class="info">
-    <td class="span10"><h4>Total</h4></td>
-    <td class= "span2"><h4><%= number_to_currency(Expense.sum_expenses(@expenses)) %></h4></td>
-</tbody>
-</table>
