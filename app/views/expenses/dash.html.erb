@@ -82,8 +82,6 @@
     <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
   </div>
 </div>
-</div>
-</div>
 
 <!-- Weekly -->
 <div id="weeklyexpensemodal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -93,23 +91,24 @@
   </div>
   <div class="modal-body">
     <table class = "table">
-	<thead>
-    <tr>
-      <th class = "span2">Date</th>
-      <th class = "span7">Category</th>
-      <th>Amount</th>
-      <th class = "span1"></th>
-    </tr>
-	</thead>
-	<tbody>
-  <%= render partial: "expense", collection: @sorted_weekly_expenses, as: :expense %>
-  <tr class = "info">
-    <td class = "span2"><h4>Total</h4></td>
-    <td class = "span8"></td>
-    <td><h4><%= number_to_currency(Expense.sum_expenses(@sorted_weekly_expenses)) %></h4></td>
-    <td></td>
-</tbody>
-</table>
+      <thead>
+        <tr>
+          <th class = "span2">Date</th>
+          <th class = "span7">Category</th>
+          <th>Amount</th>
+          <th class = "span1"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <%= render partial: "expense", collection: @sorted_weekly_expenses, as: :expense %>
+        <tr class = "info">
+          <td class = "span2"><h4>Total</h4></td>
+          <td class = "span8"></td>
+          <td><h4><%= number_to_currency(Expense.sum_expenses(@sorted_weekly_expenses)) %></h4></td>
+          <td></td>
+        </tr>
+      </tbody>
+    </table>
   </div>
   <div class="modal-footer">
     <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
@@ -124,23 +123,24 @@
   </div>
   <div class="modal-body">
     <table class = "table">
-	<thead>
-    <tr>
-      <th class = "span2">Date</th>
-      <th class = "span7">Category</th>
-      <th>Amount</th>
-      <th class = "span1"></th>
-    </tr>
-	</thead>
-	<tbody>
-  <%= render partial: "expense", collection: @sorted_monthly_expenses, as: :expense %>
-  <tr class = "info">
-    <td class = "span2"><h4>Total</h4></td>
-    <td class = "span8"></td>
-    <td><h4><%= number_to_currency(Expense.sum_expenses(@sorted_monthly_expenses)) %></h4></td>
-    <td></td>
-</tbody>
-</table>
+      <thead>
+        <tr>
+          <th class = "span2">Date</th>
+          <th class = "span7">Category</th>
+          <th>Amount</th>
+          <th class = "span1"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <%= render partial: "expense", collection: @sorted_monthly_expenses, as: :expense %>
+        <tr class = "info">
+          <td class = "span2"><h4>Total</h4></td>
+          <td class = "span8"></td>
+          <td><h4><%= number_to_currency(Expense.sum_expenses(@sorted_monthly_expenses)) %></h4></td>
+          <td></td>
+        </tr>
+      </tbody>
+    </table>
   </div>
   <div class="modal-footer">
     <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
