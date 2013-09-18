@@ -1,6 +1,18 @@
 <div class = "page-header">
-  <h1><small>Yearly Entries</small></br>
-    <%= Date.today.strftime("%Y") %>
+  <h1><small>Yearly Summary</small></br>
+    <div class="dropdown inline-block">
+      <a href="#" class="dropdown-toggle title-link" data-toggle="dropdown"><%= @date.strftime("%Y") %>&nbsp<i class="icon-caret-down"></i></a>
+        <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+          <div class="select-month">
+            <%= form_tag("/expenses/yearly", method: "get") do %>
+            <%= label_tag("Year") %>
+            <%= select_year(Date.today) %>
+              <br>
+            <%= submit_tag("Submit") %>
+            <% end %>
+          </div>
+        </ul>
+    </div>
       <div class = "pull-right">
         <%= link_to "Create a New Entry", new_expense_path, :class => "btn btn-primary btn-large" %>
       </div>

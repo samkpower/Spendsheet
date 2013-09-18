@@ -35,8 +35,15 @@ class ExpensesController < ApplicationController
   end
 
   def yearly
-    yearly_expenses = @expenses.year(2013)
-    @sorted_yearly_expenses = yearly_expenses.sort_by! {|expense| expense[:created_at]}
+    if params[:date]
+      year = (params[:date][:year]).to_i
+      @date = DateTime.new(year)
+      @yearly_expenses = @expenses.year(year)
+    else
+      @date = Date.today
+      @yearly_expenses = @expenses.this_year
+    end
+    @sorted_yearly_expenses = @yearly_expenses.sort_by! {|expense| expense[:created_at]}
   end
 
   def new
