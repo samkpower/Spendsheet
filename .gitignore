@@ -14,3 +14,7 @@
 # Ignore all logfiles and tempfiles.
 /log/*.log
 /tmp
+
+# Ignore experimental pages
+/expenses/chartkick.html.erb
+/periods/index.html.erb
