@@ -10,7 +10,7 @@ class Expense < ActiveRecord::Base
 	end
 
 	def category_name=(name)
-		self.category = Category.find_or_create_by_name(name) if name.present?
+		self.category = Category.find_or_create_by_name(name: name, user_id: user_id) if name.present?
 	end
 
 	def self.group_by_category

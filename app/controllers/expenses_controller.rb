@@ -54,9 +54,12 @@ class ExpensesController < ApplicationController
 
   def create
     @expense = @current_user.expenses.create(expense_params)
-    
+      unless @expense.category.user_id
+        category = Category.find(@expense.category_id)
+        category.user_id = @expense.user_id
+        category.save
+      end
     @expense.save
-
       if @expense.save
         redirect_to expenses_url, notice: "New expense has been added."
       else
@@ -69,8 +72,12 @@ class ExpensesController < ApplicationController
 
 	def update
     @expense.update(expense_params)
+      unless @expense.category.user_id
+        category = Category.find(@expense.category_id)
+        category.user_id = @expense.user_id
+        category.save
+      end
     @expense.save
-
       if @expense.save
         redirect_to expenses_url, notice: "Your entry has been updated."
       else
