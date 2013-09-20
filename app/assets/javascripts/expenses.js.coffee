@@ -3,6 +3,8 @@
 # You can use CoffeeScript in this file: http://coffeescript.org/
 
 $(document).ready ->
+  $('#tooltip').tooltip()
+  
   $('.datepicker').datepicker format: 'yyyy-mm-dd'
 
   $('#expense_category_name').autocomplete

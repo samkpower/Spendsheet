@@ -1,4 +1,4 @@
-<p>Category</p>
+<p>Category <a href="#" id="tooltip" data-toggle="tooltip" data-placement="right" data-trigger="focus hover" title data-original-title="Select an existing category or create a new one."><i class="icon-info-sign"></i></a></p>
 <div><%= f.text_field :category_name, data: {autocomplete_source: @current_user.categories.order(:name).map(&:name)}  %></div>
 
 
